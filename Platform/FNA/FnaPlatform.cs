@@ -9,6 +9,7 @@ public sealed class FnaPlatform : Game, IPlatform
     private readonly FnaWindow _window;
     private readonly FnaInput _input;
     private readonly FnaTime _time;
+    private FnaRenderer _renderer;
 
     private Engine _engine;
 
@@ -18,12 +19,12 @@ public sealed class FnaPlatform : Game, IPlatform
         _window = new FnaWindow(Window, config);
 
         //Graphics
-        var gdm = new GraphicsDeviceManager(this)
+         _gdm = new GraphicsDeviceManager(this)
         {
             PreferredBackBufferWidth = config.Width,
             PreferredBackBufferHeight = config.Height
         };
-        gdm.ApplyChanges();
+        _gdm.ApplyChanges();
 
         //Subsystems
         _input = new FnaInput();
@@ -35,6 +36,8 @@ public sealed class FnaPlatform : Game, IPlatform
     public IInput Input => _input;
     public ITime Time => _time;
 
+    public IRenderer Renderer => _renderer;
+
     protected override void Update(GameTime gameTime)
     {
         _time.Update(gameTime);
@@ -42,6 +45,12 @@ public sealed class FnaPlatform : Game, IPlatform
         _engine.Update();
 
         base.Update(gameTime);
+    }
+
+    protected override void Initialize()
+    {
+        base.Initialize();
+        _renderer = new FnaRenderer(GraphicsDevice);
     }
 
     public void SetEngine(Engine engine)

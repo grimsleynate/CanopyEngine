@@ -6,6 +6,7 @@ public class Engine
 {
     private readonly IPlatform _platform;
     private readonly IInput _input;
+    private IRenderer _renderer;
 
     public Engine(IPlatform platform)
     {
@@ -17,13 +18,15 @@ public class Engine
     {
         _input.Update();
 
-        if (_input.IsKeyDown(KeyCode.W))
-            Console.WriteLine("W is down.");
+        if (_renderer == null)
+        {
+            _renderer = _platform.Renderer;
+        }
 
-        if (_input.IsMouseDown(MouseButton.Left))
-            Console.WriteLine("Left Mouse Button clicked");
+        var color = _input.IsKeyDown(KeyCode.Space)
+        ? (0f, 0.2f, 0.6f)
+        : (0.1f, 0.1f, 0.1f);
 
-        var (mx, my) = _input.MousePosition;
-        Console.WriteLine($"Mouse:{mx}, {my}");
+        _renderer.Clear(color.Item1, color.Item2, color.Item3);
     }
 }
