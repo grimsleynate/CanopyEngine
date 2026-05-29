@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Engine/">
+    <Project Path="Engine/Core/Core.csproj" Id="5f1ecd84-f64b-436a-811c-64682beff1ea" />
+  </Folder>
+  <Folder Name="/Platform/">
+    <Project Path="Platform/Abstractions/Abstractions.csproj" Id="398a976c-0794-4607-b940-fddbfd9eac61" />
+    <Project Path="Platform/FNA/FNA.csproj" Id="734f9156-6fac-4aae-ab2d-1f8e980ade26" />
+  </Folder>
+  <Folder Name="/Sandbox/">
+    <Project Path="Sandbox/Sandbox/Sandbox.csproj" Id="ea1950ad-f596-4028-9540-662bd927a235" />
+  </Folder>
+</Solution>
