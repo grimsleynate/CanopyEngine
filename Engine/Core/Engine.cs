@@ -112,6 +112,21 @@ public class Engine
 
         _input.Update();
 
+        // Handle input
+        if (_input.IsKeyDown(KeyCode.Escape))
+        {
+            Stop();
+            return;
+        }
+
+        var bgColor = _input.IsKeyDown(KeyCode.Space)
+            ? (0.0f, 0.2f, 0.6f) 
+            : (0.1f, 0.1f, 0.1f);
+
+        // Clear with the selected color
+        _platform.Renderer?.Clear(bgColor.Item1, bgColor.Item2, bgColor.Item3);
+
+
         try
         {
             OnUpdate?.Invoke(clamped);
