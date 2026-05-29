@@ -32,13 +32,13 @@ namespace CanopyEngine.Tests
 
             mockPlatform.Setup(p => p.Input).Returns(mockInput.Object);
             mockPlatform.Setup(p => p.Renderer).Returns(mockRenderer.Object);
-            mockInput.Setup(i => i.IsKeyDown(KeyCode.Space)).Returns(false);
+            mockInput.Setup(i => i.IsKeyDown(KeyCode.Space)).Returns(true);
 
             // Act
             engine.Update();
 
             // Assert
-            mockRenderer.Verify(r => r.Clear(0.1f, 0.1f, 0.1f), Times.Once);
+            mockRenderer.Verify(r => r.Clear(0f, 0.2f, 0.6f), Times.Once);
         }
     }
 }
