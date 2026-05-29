@@ -1,0 +1,45 @@
+﻿using Moq;
+using NUnit.Framework;
+using CanopyEngine.Platform.Abstractions;
+
+namespace CanopyEngine.Tests
+{
+    [TestFixture]
+    public class EngineTests
+    {
+        [Test]
+        public void Update_WhenRendererNull_DoesNotThrow()
+        {
+            // Arrange
+            var mockPlatform = new Mock<IPlatform>();
+            var mockInput = new Mock<IInput>();
+            var engine = new Engine(mockPlatform.Object);
+
+            mockPlatform.Setup(p => p.Input).Returns(mockInput.Object);
+            mockPlatform.Setup(p => p.Renderer).Returns((IRenderer)null); // Explicitly null
+
+            // Act & Assert
+            Assert.DoesNotThrow(() => engine.Update());
+        }
+
+        [Test]
+        public void Update_WhenRendererReady_CallsClearWithCorrectColor()
+        {
+            // Arrange
+            var mockPlatform = new Mock<IPlatform>();
+            var mockInput = new Mock<IInput>();
+            var mockRenderer = new Mock<IRenderer>();
+            var engine = new Engine(mockPlatform.Object);
+
+            mockPlatform.Setup(p => p.Input).Returns(mockInput.Object);
+            mockPlatform.Setup(p => p.Renderer).Returns(mockRenderer.Object);
+            mockInput.Setup(i => i.IsKeyDown(KeyCode.Space)).Returns(false);
+
+            // Act
+            engine.Update();
+
+            // Assert
+            mockRenderer.Verify(r => r.Clear(0.1f, 0.1f, 0.1f), Times.Once);
+        }
+    }
+}

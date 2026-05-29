@@ -9,4 +9,7 @@
   <Folder Name="/Sandbox/">
     <Project Path="Sandbox/Sandbox/Sandbox.csproj" Id="ea1950ad-f596-4028-9540-662bd927a235" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/EngineTests/EngineTests.csproj" Id="418805c9-1a22-4536-af58-2af685875f2a" />
+  </Folder>
 </Solution>
