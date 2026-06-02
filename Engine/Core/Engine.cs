@@ -1,4 +1,6 @@
-﻿using Platform.Abstractions;
+﻿using DefaultEcs;
+using DefaultEcs.System;
+using Platform.Abstractions;
 
 namespace CanopyEngine;
 
@@ -13,6 +15,10 @@ public class Engine
     private IInput _input;
     private IRenderer _renderer;
 
+    private ISystem<float> _updateSystems;
+    private ISystem<float> _fixedSystems;
+    private ISystem<float> _drawSystems;
+
     private CancellationTokenSource? _cts;
     private readonly object _stateLock = new();
 
@@ -24,6 +30,9 @@ public class Engine
 
     /// <summary>Fixed step size in seconds (default 60 Hz).</summary>
     public double FixedDeltaSeconds { get; set; } = 1.0 / 60.0;
+
+    /// <summary>The main ECS world. This is created by the engine and can be used by systems and game code. </summary>
+    public World World { get; }
 
     /// <summary>
     /// Current lifecylce state of the engine
@@ -52,6 +61,7 @@ public class Engine
     public Engine(IPlatform platform)
     {
         _platform = platform;
+        World = new World();
     }
 
     /// <summary>
@@ -118,6 +128,7 @@ public class Engine
         try
         {
             OnUpdate?.Invoke(clamped);
+            _updateSystems.Update(clamped);
         }
         catch (Exception ex)
         {
@@ -135,6 +146,7 @@ public class Engine
             try
             {
                 OnFixedUpdate?.Invoke((float)FixedDeltaSeconds);
+                _fixedSystems.Update((float)FixedDeltaSeconds);
             }
             catch (Exception ex)
             {
@@ -176,6 +188,7 @@ public class Engine
 
         try
         {
+            _drawSystems?.Update(0f);
             OnDraw?.Invoke();
         }
         catch (Exception ex)
@@ -201,6 +214,21 @@ public class Engine
     public CancellationToken GetCancellationToken()
     {
         return _cts?.Token ?? new CancellationToken(true);
+    }
+
+    public void SetUpdateSystems(ISystem<float> systems)
+    {
+        _updateSystems = systems;
+    }
+
+    public void SetFixedSystems(ISystem<float> systems)
+    {
+        _fixedSystems = systems;
+    }
+
+    public void SetDrawSystems(ISystem<float> systems)
+    {
+        _drawSystems = systems;
     }
 }
 

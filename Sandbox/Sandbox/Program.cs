@@ -1,4 +1,8 @@
 ﻿using CanopyEngine;
+using DefaultEcs;
+using DefaultEcs.System;
+using ECS.Components;
+using ECS.Systems;
 using Platform.Abstractions;
 using Platform.FNA;
 
@@ -11,33 +15,54 @@ public static class Program
             var engine = new Engine(platform);
             platform.SetEngine(engine);
 
-            Sprite sprite = default;
+            Sprite playerSprite = default;
             float x = 100;
             float y = 100;
 
             platform.Initialized += () =>
             {
                 var assets = new FnaAssetManager(platform.GraphicsDevice);
-                sprite = assets.LoadSprite("Content/player.png");
+                playerSprite = assets.LoadSprite("Content/player.png");
+
+                engine.SetDrawSystems(new SequentialSystem<float>(
+                    new SpriteRenderSystem(engine.World, platform.Renderer)
+                ));
+
+                engine.Start();
+            };
+
+            engine.OnStart += () =>
+            {
+                var player = engine.World.CreateEntity();
+
+                player.Set(new Position { X = x, Y = y });
+                player.Set(new Velocity { VX = 0, VY = 0 });
+                player.Set(new SpriteComponent { Sprite = playerSprite });
+                player.Set(new PlayerTag());
+                player.Set(new Gravity { Strength = 900f });
+
+                engine.SetUpdateSystems(new SequentialSystem<float>(
+                    new PlayerInputSystem(engine.World, platform.Input),
+                    new MovementSystem(engine.World)
+                ));
+
+                engine.SetFixedSystems(new SequentialSystem<float>(
+                    new GravitySystem(engine.World),
+                    new PhysicsSystem(engine.World)
+                ));
             };
 
             engine.OnUpdate += delta =>
             {
-                x += 50f * delta;
-
                 if (platform.Input.IsKeyDown(KeyCode.Escape))
                     engine.Stop();
             };
 
             engine.OnDraw += () =>
             {
-                if (sprite.IsValid)
-                {
-                    platform.Renderer.DrawSprite(sprite, new System.Numerics.Vector2(x, y), 0f, Color.White);
-                }
+                
             };
 
-            engine.Start();
             platform.Run();
         }
     }

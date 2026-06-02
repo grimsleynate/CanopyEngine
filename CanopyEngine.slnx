@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Engine/">
     <Project Path="Engine/Core/Core.csproj" Id="5f1ecd84-f64b-436a-811c-64682beff1ea" />
+    <Project Path="Engine/ECS/ECS.csproj" Id="c6c15a21-f102-48f9-8ba4-43647e3b9da9" />
   </Folder>
   <Folder Name="/Platform/">
     <Project Path="Platform/Abstractions/Abstractions.csproj" Id="398a976c-0794-4607-b940-fddbfd9eac61" />
