@@ -38,8 +38,8 @@ public sealed class PhysicsSystem : ISystem<float>
             ref DynamicBody body = ref entity.Get<DynamicBody>();
 
             //Predict motion
-            float dx = vel.VX * fixedDelta;
-            float dy = vel.VY * fixedDelta;
+            float dx = vel.X * fixedDelta;
+            float dy = vel.Y * fixedDelta;
 
             foreach (var collider in _staticBodies.GetEntities())
             {

@@ -4,9 +4,9 @@ using ECS.Components;
 
 namespace ECS.Systems;
 
-public sealed class MovementSystem : AEntitySetSystem<float>
+public sealed class HorizontalMovementSystem : AEntitySetSystem<float>
 {
-    public MovementSystem(World world)
+    public HorizontalMovementSystem(World world)
         : base(world.GetEntities()
               .With<Position>()
               .With<Velocity>()
@@ -17,7 +17,7 @@ public sealed class MovementSystem : AEntitySetSystem<float>
     {
         ref Position pos = ref entity.Get<Position>();
         ref Velocity vel = ref entity.Get<Velocity>();
-        pos.X += vel.VX * delta;
-        pos.Y += vel.VY * delta;
+        pos.X += vel.X * delta;
+        pos.Y += vel.Y * delta;
     }
 }

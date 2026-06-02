@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Engine\Core\Core.csproj" />
     <ProjectReference Include="..\..\Engine\ECS\ECS.csproj" />
+    <ProjectReference Include="..\..\Physics\Physics\Physics.csproj" />
     <ProjectReference Include="..\..\Platform\FNA\FNA.csproj" />
   </ItemGroup>
 

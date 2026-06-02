@@ -1,8 +1,7 @@
 ﻿using CanopyEngine;
-using DefaultEcs;
+using ECS.Systems;
 using DefaultEcs.System;
 using ECS.Components;
-using ECS.Systems;
 using Platform.Abstractions;
 using Platform.FNA;
 
@@ -36,18 +35,18 @@ public static class Program
                 var player = engine.World.CreateEntity();
 
                 player.Set(new Position { X = x, Y = y });
-                player.Set(new Velocity { VX = 0, VY = 0 });
+                player.Set(new Velocity { X = 0, Y = 0 });
                 player.Set(new SpriteComponent { Sprite = playerSprite });
                 player.Set(new PlayerTag());
-                player.Set(new Gravity { Strength = 900f });
+                player.Set(new GravityStrength { Value = 900f });
 
                 engine.SetUpdateSystems(new SequentialSystem<float>(
                     new PlayerInputSystem(engine.World, platform.Input),
-                    new MovementSystem(engine.World)
+                    new HorizontalMovementSystem(engine.World)
                 ));
 
                 engine.SetFixedSystems(new SequentialSystem<float>(
-                    new GravitySystem(engine.World),
+                    new GravitySystem(engine.World, new WorldGravity()),
                     new PhysicsSystem(engine.World)
                 ));
             };

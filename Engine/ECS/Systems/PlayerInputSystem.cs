@@ -30,6 +30,6 @@ public sealed class PlayerInputSystem : AEntitySetSystem<float>
         if (_input.IsKeyDown(KeyCode.D))
             move += 1f;
 
-        vel.VX = move * 200f; //pixels per second
+        vel.X = move * 200f; //pixels per second
     }
 }

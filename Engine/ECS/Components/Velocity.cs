@@ -3,6 +3,6 @@ namespace ECS.Components;
 
 public struct Velocity : IComponent, IComponentPOD
 {
-    public float VX;
-    public float VY;
+    public float X;
+    public float Y;
 }
