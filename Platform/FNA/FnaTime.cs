@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using CanopyEngine.Platform.Abstractions;
+using Platform.Abstractions;
+
+namespace Platform.FNA;
 
 public sealed class FnaTime: ITime
 {

@@ -1,7 +1,7 @@
-﻿using CanopyEngine.Platform.Abstractions;
+﻿using Platform.Abstractions;
 using Microsoft.Xna.Framework.Input;
 
-namespace CanopyEngine.Platform.FNA;
+namespace Platform.FNA;
 
 internal class FnaInput : IInput
 {

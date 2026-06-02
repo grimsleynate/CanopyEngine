@@ -1,7 +1,7 @@
-﻿using CanopyEngine.Platform.Abstractions;
+﻿using Platform.Abstractions;
 using Microsoft.Xna.Framework;
 
-namespace CanopyEngine.Platform.FNA;
+namespace Platform.FNA;
 
 public sealed class FnaWindow : IWindow
 {

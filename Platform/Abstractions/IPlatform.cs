@@ -1,4 +1,4 @@
-﻿namespace CanopyEngine.Platform.Abstractions;
+﻿namespace Platform.Abstractions;
 
 public interface IPlatform
 {
@@ -6,4 +6,5 @@ public interface IPlatform
     IInput Input { get; }
     ITime Time { get;}
     IRenderer Renderer { get; }
+    event Action? Initialized;
 }

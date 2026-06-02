@@ -1,4 +1,4 @@
-﻿namespace CanopyEngine.Platform.Abstractions;
+﻿namespace Platform.Abstractions;
 public interface IInput
 {
     void Update();

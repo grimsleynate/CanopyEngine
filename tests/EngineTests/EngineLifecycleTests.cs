@@ -1,7 +1,8 @@
-﻿using Moq;
-using CanopyEngine.Platform.Abstractions;
+﻿using CanopyEngine;
+using Moq;
+using Platform.Abstractions;
 
-namespace CanopyEngine.Tests
+namespace Tests
 {
     public class EngineLifecycleTests
     {

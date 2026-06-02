@@ -1,6 +1,4 @@
-﻿using CanopyEngine.Platform.Abstractions;
-using System;
-using System.Threading;
+﻿using Platform.Abstractions;
 
 namespace CanopyEngine;
 
@@ -38,6 +36,10 @@ public class Engine
     /// </summary>
     public event Action? StopRequested;
 
+    /// <summary>
+    /// Event invoked once when the engine starts. This is useful for initialization that needs to happen after Start() is called.</summary>
+    public event Action? OnStart;
+
     /// <summary>Event invoked every variable update (deltaSeconds).</summary>
     public event Action<float>? OnUpdate;
 
@@ -71,6 +73,7 @@ public class Engine
             _input = _platform.Input;
 
             State = EngineState.Running;
+            OnStart?.Invoke();
         }
     }
 
@@ -111,21 +114,6 @@ public class Engine
         var clamped = (float)Math.Min(deltaSeconds, MaxDeltaSeconds);
 
         _input.Update();
-
-        // Handle input
-        if (_input.IsKeyDown(KeyCode.Escape))
-        {
-            Stop();
-            return;
-        }
-
-        var bgColor = _input.IsKeyDown(KeyCode.Space)
-            ? (0.0f, 0.2f, 0.6f) 
-            : (0.1f, 0.1f, 0.1f);
-
-        // Clear with the selected color
-        _platform.Renderer?.Clear(bgColor.Item1, bgColor.Item2, bgColor.Item3);
-
 
         try
         {

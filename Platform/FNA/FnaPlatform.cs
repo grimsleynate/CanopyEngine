@@ -1,7 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using CanopyEngine.Platform.Abstractions;
+﻿using CanopyEngine;
+using Microsoft.Xna.Framework;
+using Platform.Abstractions;
 
-namespace CanopyEngine.Platform.FNA;
+namespace Platform.FNA;
 
 public sealed class FnaPlatform : Game, IPlatform
 {
@@ -12,6 +13,8 @@ public sealed class FnaPlatform : Game, IPlatform
     private FnaRenderer _renderer;
 
     private Engine _engine;
+
+    public event Action? Initialized;
 
     public FnaPlatform(WindowConfig config)
     {
@@ -42,11 +45,16 @@ public sealed class FnaPlatform : Game, IPlatform
     {
         base.Initialize();
         _renderer = new FnaRenderer(GraphicsDevice);
+        Initialized?.Invoke();
     }
 
     protected override void Draw(GameTime gameTime)
     {
+        _renderer.Clear(0f, 0f, 0f);
+        _renderer.Begin();
         _engine?.Draw();
+        _renderer.End();
+
         base.Draw(gameTime);
     }
 
@@ -54,7 +62,7 @@ public sealed class FnaPlatform : Game, IPlatform
     {
         var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
         _time.Update(gameTime);
-        _engine.Update(delta);
+        _engine?.Update(delta);
 
         base.Update(gameTime);
     }
@@ -62,7 +70,6 @@ public sealed class FnaPlatform : Game, IPlatform
     public void SetEngine(Engine engine)
     {
         _engine = engine;
-        //WHen the engine requests stop, exit the game loop
         engine.StopRequested += () => Exit();
     }
 }
