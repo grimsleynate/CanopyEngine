@@ -19,6 +19,11 @@ public class Engine
     private ISystem<float> _fixedSystems;
     private ISystem<float> _drawSystems;
 
+    private readonly ITime _time;
+    public uint FrameCount { get; private set; }
+    public uint FixedUpdateCount { get; private set; }
+    public ITime Time => _time;
+
     private CancellationTokenSource? _cts;
     private readonly object _stateLock = new();
 
@@ -62,6 +67,7 @@ public class Engine
     {
         _platform = platform;
         World = new World();
+        _time = platform.Time;
     }
 
     /// <summary>
@@ -129,6 +135,8 @@ public class Engine
         {
             OnUpdate?.Invoke(clamped);
             _updateSystems.Update(clamped);
+            FrameCount++;
+            Console.WriteLine($"FrameCount: {FrameCount}");
         }
         catch (Exception ex)
         {
@@ -147,6 +155,8 @@ public class Engine
             {
                 OnFixedUpdate?.Invoke((float)FixedDeltaSeconds);
                 _fixedSystems.Update((float)FixedDeltaSeconds);
+                FixedUpdateCount++;
+                Console.WriteLine($"FixedUpdateCount: {FixedUpdateCount}");
             }
             catch (Exception ex)
             {
@@ -154,6 +164,8 @@ public class Engine
             }
 
             _accumulatorSeconds -= FixedDeltaSeconds;
+
+            Console.WriteLine($"Total Time: {Time.TotalTime} Delta Time: {Time.DeltaTime} Unscaled Delta Time: {Time.UnscaledDeltaTime} Time Scale: {Time.TimeScale} ");
         }
     }
 
