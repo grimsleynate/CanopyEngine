@@ -52,8 +52,8 @@ public static class Program
                 player.Value.Set(new GravityStrength { Value = 900f });
 
                 engine.SetUpdateSystems(new SequentialSystem<float>(
-                    new PlayerInputSystem(engine.World, platform.Input),
-                    new HorizontalMovementSystem(engine.World)
+                    new PlayerInputSystem(engine.World, platform.Input, moveSpeed: 200f),
+                    new MovementSystem(engine.World)
                 ));
 
                 engine.SetFixedSystems(new SequentialSystem<float>(
