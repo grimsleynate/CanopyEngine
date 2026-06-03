@@ -3,6 +3,8 @@ using DefaultEcs.System;
 using ECS.Components;
 using Platform.Abstractions;
 
+namespace ECS.Systems;
+
 public sealed class SpriteRenderSystem : AEntitySetSystem<float>
 {
     private readonly IRenderer _renderer;

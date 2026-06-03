@@ -1,17 +1,31 @@
-﻿using ECS.Components;
-using System.Numerics;
+﻿using System.Numerics;
+using Engine.Physics;
+using ECS.Components;
 
-namespace Physics;
+namespace Engine.Components;
 
-public class PhysicsMath
+public readonly struct SweepResult : IComponent
 {
+    public readonly bool Hit;
+    public readonly float TimeOfImpact;
+    public readonly Vector2 Normal;
+
+    public SweepResult(bool hit, float toi, Vector2 normal)
+    {
+        Hit = hit;
+        TimeOfImpact = toi;
+        Normal = normal;
+    }
+
+    public static SweepResult NoHit => new(false, 1f, Vector2.Zero);
+
     public static SweepResult SweepAabb(
     in AABB moving,
     in AABB target,
     float dx,
     float dy)
     {
-        if (AabbOverlap(moving, target))
+        if (PhysicsMath.AabbOverlap(moving, target))
             return SweepResult.NoHit;
 
         float xEntry, xExit;
@@ -70,13 +84,4 @@ public class PhysicsMath
 
         return new SweepResult(true, tEntry, normal);
     }
-
-    public static bool AabbOverlap(in AABB a, in AABB b)
-    {
-        return a.MinX < b.MaxX &&
-               a.MaxX > b.MinX &&
-               a.MinY < b.MaxY &&
-               a.MaxY > b.MinY;
-    }
-
 }

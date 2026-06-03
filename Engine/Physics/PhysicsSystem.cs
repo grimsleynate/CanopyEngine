@@ -1,10 +1,8 @@
 ﻿using DefaultEcs;
 using DefaultEcs.System;
 using ECS.Components;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
 
-namespace ECS.Systems;
+namespace Engine.Physics;
 
 public sealed class PhysicsSystem : ISystem<float>
 {

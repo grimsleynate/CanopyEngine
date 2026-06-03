@@ -2,7 +2,7 @@
 using DefaultEcs.System;
 using ECS.Components;
 
-namespace ECS.Systems;
+namespace Engine.Physics;
 
 public sealed class VerticalMovementSystem : AEntitySetSystem<float>
 {

@@ -1,4 +1,6 @@
-﻿namespace ECS.Components;
+﻿using ECS.Components;
+
+namespace Engine.Physics;
 
 public struct AABB : IComponent, IComponentPOD
 {

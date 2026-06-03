@@ -9,10 +9,15 @@ public sealed class FnaRenderer : IRenderer
     private readonly GraphicsDevice _gd;
     private readonly SpriteBatch _spriteBatch;
 
+    private readonly Texture2D _whitePixel;
+
     public FnaRenderer(GraphicsDevice gd)
     {
         _gd = gd;
         _spriteBatch = new SpriteBatch(gd);
+
+        _whitePixel = new Texture2D(gd, 1, 1);
+        _whitePixel.SetData(new[] { Microsoft.Xna.Framework.Color.White });
     }
 
     public void Begin()
@@ -60,5 +65,18 @@ public sealed class FnaRenderer : IRenderer
     private static Microsoft.Xna.Framework.Color ToXnaColor(Abstractions.Color c)
     {
         return new Microsoft.Xna.Framework.Color(c.R, c.G, c.B, c.A);
+    }
+
+    public void DrawQuad(System.Numerics.Vector2 position, float width, float height, uint color)
+    {
+        byte a = (byte)((color >> 24) & 0xFF);
+        byte r = (byte)((color >> 16) & 0xFF);
+        byte g = (byte)((color >> 8) & 0xFF);
+        byte b = (byte)(color & 0xFF);
+        var newColor = new Microsoft.Xna.Framework.Color(r, g, b, a);
+
+        var dest = new Rectangle(
+        (int)position.X, (int)position.Y, (int)width, (int)height);
+        _spriteBatch.Draw(_whitePixel, dest, newColor);
     }
 }
