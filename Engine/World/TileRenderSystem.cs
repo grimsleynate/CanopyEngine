@@ -1,9 +1,9 @@
-﻿using Engine.Physics;
+﻿using CanopyEngine.Physics;
 using System.Numerics;
 using Platform.Abstractions;
 using DefaultEcs.System;
 
-namespace Engine.World;
+namespace CanopyEngine.World;
 
 // A simple tile renderer that culls by visible chunk range and draws repeating tiles
 public class TileRenderSystem

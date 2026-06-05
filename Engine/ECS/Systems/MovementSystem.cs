@@ -9,7 +9,10 @@ public sealed class MovementSystem : AEntitySetSystem<float>
     private readonly float _maxStep;
 
     public MovementSystem(World world, float maxStep = float.PositiveInfinity)
-        : base(world.GetEntities().With<Position>().With<Velocity>().AsSet())
+        : base(world.GetEntities()
+              .With<Position>()
+              .With<Velocity>()
+              .AsSet())
     {
         _maxStep = maxStep;
     }

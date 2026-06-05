@@ -8,10 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Content\bin\Fonts\DebugFont.xnb" />
     <None Remove="Content\player.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Content\bin\Fonts\DebugFont.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\player.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -24,9 +28,26 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Engine\Core\Core.csproj" />
     <ProjectReference Include="..\..\Engine\ECS\ECS.csproj" />
+    <ProjectReference Include="..\..\Engine\Profiling\Profiling.csproj" />
     <ProjectReference Include="..\..\Engine\World\World.csproj" />
     <ProjectReference Include="..\..\Engine\Physics\Physics.csproj" />
     <ProjectReference Include="..\..\Platform\FNA\FNA.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<None Include="Content\bin\**\*.xnb">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="NewFolder\**" />
+	  <EmbeddedResource Remove="NewFolder\**" />
+	  <None Remove="NewFolder\**" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Content\Fonts\" />
   </ItemGroup>
 
 </Project>

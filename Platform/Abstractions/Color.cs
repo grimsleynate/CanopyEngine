@@ -18,4 +18,5 @@ public readonly struct Color
     public static readonly Color Red = new Color(1f, 0f, 0f, 1f);
     public static readonly Color Green = new Color(0f, 1f, 0f, 1f);
     public static readonly Color Blue = new Color(0f, 0f, 1f, 1f);
+    public static readonly Color Yellow = new Color(1f, 1f, 0f, 1f);
 }

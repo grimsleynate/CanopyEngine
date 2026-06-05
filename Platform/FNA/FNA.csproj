@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Engine\Core\Core.csproj" />
+    <ProjectReference Include="..\..\Engine\Profiling\Profiling.csproj" />
     <ProjectReference Include="..\Abstractions\Abstractions.csproj" />
   </ItemGroup>
 

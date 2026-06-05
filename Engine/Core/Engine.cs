@@ -136,7 +136,6 @@ public class Engine
             OnUpdate?.Invoke(clamped);
             _updateSystems.Update(clamped);
             FrameCount++;
-            Console.WriteLine($"FrameCount: {FrameCount}");
         }
         catch (Exception ex)
         {
@@ -156,7 +155,6 @@ public class Engine
                 OnFixedUpdate?.Invoke((float)FixedDeltaSeconds);
                 _fixedSystems.Update((float)FixedDeltaSeconds);
                 FixedUpdateCount++;
-                Console.WriteLine($"FixedUpdateCount: {FixedUpdateCount}");
             }
             catch (Exception ex)
             {
@@ -164,8 +162,6 @@ public class Engine
             }
 
             _accumulatorSeconds -= FixedDeltaSeconds;
-
-            Console.WriteLine($"Total Time: {Time.TotalTime} Delta Time: {Time.DeltaTime} Unscaled Delta Time: {Time.UnscaledDeltaTime} Time Scale: {Time.TimeScale} ");
         }
     }
 

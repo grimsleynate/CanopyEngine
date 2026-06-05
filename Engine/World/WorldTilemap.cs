@@ -1,7 +1,7 @@
-﻿using Engine.World;
-using Engine.Physics;
+﻿using CanopyEngine.World;
+using CanopyEngine.Physics;
 
-namespace Engine.World;
+namespace CanopyEngine.World;
 
 public class WorldTilemap
 {

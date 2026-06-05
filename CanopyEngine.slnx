@@ -3,6 +3,7 @@
     <Project Path="Engine/Core/Core.csproj" Id="5f1ecd84-f64b-436a-811c-64682beff1ea" />
     <Project Path="Engine/ECS/ECS.csproj" Id="c6c15a21-f102-48f9-8ba4-43647e3b9da9" />
     <Project Path="Engine/Physics/Physics.csproj" />
+    <Project Path="Engine/Profiling/Profiling.csproj" Id="80f9ca63-47d6-4952-8649-87467186701c" />
     <Project Path="Engine/World/World.csproj" Id="44af09a6-761e-4e6e-bd41-b0da6698fb5e" />
   </Folder>
   <Folder Name="/Platform/">

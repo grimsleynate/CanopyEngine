@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
 using ECS.Components;
 
-namespace Engine.World;
+namespace CanopyEngine.World;
 
 public struct Camera : IComponent, IComponentPOD
 {

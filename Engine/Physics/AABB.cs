@@ -1,6 +1,6 @@
 ﻿using ECS.Components;
 
-namespace Engine.Physics;
+namespace CanopyEngine.Physics;
 
 public struct AABB : IComponent, IComponentPOD
 {

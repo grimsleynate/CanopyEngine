@@ -1,4 +1,4 @@
-﻿namespace Engine.World;
+﻿namespace CanopyEngine.World;
 
 public enum TileType : byte 
 { 

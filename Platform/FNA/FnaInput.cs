@@ -118,6 +118,7 @@ namespace Platform.FNA
             KeyCode.Up => Keys.Up,
             KeyCode.Down => Keys.Down,
             KeyCode.Escape => Keys.Escape,
+            KeyCode.F3 => Keys.F3,
             _ => Keys.None
         };
     }

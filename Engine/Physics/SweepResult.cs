@@ -1,8 +1,8 @@
 ﻿using System.Numerics;
-using Engine.Physics;
+using CanopyEngine.Physics;
 using ECS.Components;
 
-namespace Engine.Components;
+namespace CanopyEngine.Components;
 
 public readonly struct SweepResult : IComponent
 {

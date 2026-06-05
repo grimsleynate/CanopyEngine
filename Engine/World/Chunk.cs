@@ -1,6 +1,6 @@
-﻿using Engine.Physics;
+﻿using CanopyEngine.Physics;
 
-namespace Engine.World;
+namespace CanopyEngine.World;
 
 public struct Tile
 {

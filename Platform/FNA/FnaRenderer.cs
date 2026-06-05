@@ -1,6 +1,8 @@
-﻿using Platform.Abstractions;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
+using Platform.Abstractions;
+using System.Reflection.Metadata;
 
 namespace Platform.FNA;
 
@@ -57,16 +59,6 @@ public sealed class FnaRenderer : IRenderer
         );
     }
 
-    public void End()
-    {
-        _spriteBatch.End();
-    }
-
-    private static Microsoft.Xna.Framework.Color ToXnaColor(Abstractions.Color c)
-    {
-        return new Microsoft.Xna.Framework.Color(c.R, c.G, c.B, c.A);
-    }
-
     public void DrawQuad(System.Numerics.Vector2 position, float width, float height, uint color)
     {
         byte a = (byte)((color >> 24) & 0xFF);
@@ -78,5 +70,20 @@ public sealed class FnaRenderer : IRenderer
         var dest = new Rectangle(
         (int)position.X, (int)position.Y, (int)width, (int)height);
         _spriteBatch.Draw(_whitePixel, dest, newColor);
+    }
+
+    public void DrawString(SpriteFont font, string text, Vector2 position, Microsoft.Xna.Framework.Color color)
+    {
+        _spriteBatch.DrawString(font, text, position, color);
+    }
+
+    public void End()
+    {
+        _spriteBatch.End();
+    }
+
+    private static Microsoft.Xna.Framework.Color ToXnaColor(Abstractions.Color c)
+    {
+        return new Microsoft.Xna.Framework.Color(c.R, c.G, c.B, c.A);
     }
 }

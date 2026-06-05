@@ -1,8 +1,8 @@
 ﻿using ECS.Components;
-using Engine.Components;
+using CanopyEngine.Components;
 using System.Numerics;
 
-namespace Engine.Physics;
+namespace CanopyEngine.Physics;
 
 public class PhysicsMath
 {
