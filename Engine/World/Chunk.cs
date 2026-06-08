@@ -29,4 +29,35 @@ public class Chunk
 
     public Tile GetTile(int lx, int ly) => Tiles[ly  * Size + lx];
     public void SetTile(int lx, int ly, Tile tile) => Tiles[ly * Size + lx] = tile;
+
+    public void BuildColliders(WorldTilemap map)
+    {
+        int tileSize = map.TileSize;
+        float chunkWorldX = CX * Size * tileSize;
+        float chunkWorldY = CY * Size * tileSize;
+
+        for (int ly = 0; ly < Size; ly++)
+        {
+            for (int lx = 0; lx < Size; lx++)
+            {
+                Tile tile = GetTile(lx, ly);
+                if (tile.Type != TileType.Wall)
+                    continue;
+
+                float minX = chunkWorldX + lx * tileSize;
+                float minY = chunkWorldY + ly * tileSize;
+                float maxX = minX + tileSize;
+                float maxY = minY + tileSize;
+
+                Colliders.Add(new AABB
+                {
+                    MinX = minX,
+                    MinY = minY,
+                    MaxX = maxX,
+                    MaxY = maxY
+                });
+            }
+        }
+
+    }
 }

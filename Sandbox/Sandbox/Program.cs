@@ -70,15 +70,16 @@ public static class Program
                 player.Value.Set(new SpriteComponent { Sprite = playerSprite });
                 player.Value.Set(new PlayerTag());
                 player.Value.Set(new GravityStrength { Value = 900f });
+                player.Value.Set(new CircleCollider { Radius = 12f, OffsetX = 16f, OffsetY = 44f});
+                player.Value.Set(new DynamicBody { IsOneWay = false, IsPlatform = false, AffectedByGravity = true, PlatformHeight = null });
 
                 engine.SetUpdateSystems(new SequentialSystem<float>(
-                    WrapTimed(new PlayerInputSystem(engine.World, platform.Input, moveSpeed: 200f), "Player Input"),
-                    WrapTimed(new MovementSystem(engine.World), "Movement")
+                    WrapTimed(new PlayerInputSystem(engine.World, platform.Input, moveSpeed: 200f), "Player Input")
                 ));
 
                 engine.SetFixedSystems(new SequentialSystem<float>(
                     WrapTimed(new GravitySystem(engine.World, new WorldGravity()), "Gravity"),
-                    WrapTimed(new PhysicsSystem(engine.World), "Physics")
+                    WrapTimed(new PhysicsSystem(engine.World, map), "Physics")
                 ));
             };
 

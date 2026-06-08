@@ -3,7 +3,7 @@ using CanopyEngine.Physics;
 
 namespace CanopyEngine.World;
 
-public class WorldTilemap
+public class WorldTilemap : IStaticColliderProvider
 {
     public readonly Dictionary<(int cx, int cy), Chunk> Chunks = new();
     public int TileSize = 32;
@@ -57,5 +57,20 @@ public class WorldTilemap
             chunk.IsLoaded = true;
         }
         return chunk;
+    }
+
+    public IEnumerable<AABB> QueryAABBs(float minX, float minY, float maxX, float maxY)
+    {
+        var (minCx, minCy, maxCx, maxCy) = WorldRectToChunkRange(minX, minY, maxX, maxY);
+
+        for (int cy = minCy; cy <= maxCy; cy++)
+            for (int cx = minCx; cx <= maxCx; cx++)
+            {
+                if (!Chunks.TryGetValue((cx, cy), out var chunk) || !chunk.IsLoaded)
+                    continue;
+
+                foreach (var col in chunk.Colliders)
+                    yield return col;
+            }
     }
 }

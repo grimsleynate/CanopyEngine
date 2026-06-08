@@ -8,7 +8,6 @@ namespace CanopyEngine.Debugging
 {
     public sealed class DebugOverlayRenderer
     {
-        private readonly IInput _input;
         private readonly ITime _time;
         private readonly FnaRenderer _renderer;
         private readonly SpriteFont _font;
@@ -19,7 +18,6 @@ namespace CanopyEngine.Debugging
 
         public DebugOverlayRenderer(IInput input, ITime time, SpriteFont font, FnaRenderer renderer)
         {
-            _input = input;
             _time = time;
             _font = font;
             _renderer = renderer;

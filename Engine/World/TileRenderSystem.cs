@@ -59,40 +59,48 @@ public class TileRenderSystem
         for (int y = 0; y < Chunk.Size; y++)
             for (int x = 0; x < Chunk.Size; x++)
             {
-                var t = new Tile { Type = TileType.Floor, SpriteId = 1, Flags = 0, Height = 0f };
+                var t = new Tile();
+                if (y % 6 == 0 || x % 6 == 0)
+                {
+                    t = new Tile { Type = TileType.Wall, SpriteId = 2, Flags = 0, Height = 1f };
+                }
+                else
+                {
+                    t = new Tile { Type = TileType.Floor, SpriteId = 1, Flags = 0, Height = 0f };
+                }
                 chunk.SetTile(x, y, t);
             }
-        TileRenderSystem.BuildCollidersForChunk(chunk, _map.TileSize, tile => (tile.Flags & 1) != 0);
+        chunk.BuildColliders(_map);
         return true;
     }
 
     // Simple horizontal run merging into AABBs
-    private static void BuildCollidersForChunk(Chunk chunk, int tileSize, Func<Tile, bool> isCollidable)
-    {
-        chunk.Colliders.Clear();
-        for (int y = 0; y < Chunk.Size; y++)
-        {
-            int runStart = -1;
-            for (int x = 0; x <= Chunk.Size; x++)
-            {
-                bool coll = (x < Chunk.Size) && isCollidable(chunk.GetTile(x, y));
-                if (coll && runStart == -1) runStart = x;
-                if ((!coll || x == Chunk.Size) && runStart != -1)
-                {
-                    int runEnd = x - 1;
-                    float worldX = (chunk.CX * Chunk.Size + runStart) * tileSize;
-                    float worldY = (chunk.CY * Chunk.Size + y) * tileSize;
-                    float width = (runEnd - runStart + 1) * tileSize;
-                    chunk.Colliders.Add(new AABB
-                    {
-                        MinX = worldX,
-                        MinY = worldY,
-                        MaxX = worldX + width,
-                        MaxY = worldY + tileSize
-                    });
-                    runStart = -1;
-                }
-            }
-        }
-    }
+    //private static void BuildCollidersForChunk(Chunk chunk, int tileSize, Func<Tile, bool> isCollidable)
+    //{
+    //    chunk.Colliders.Clear();
+    //    for (int y = 0; y < Chunk.Size; y++)
+    //    {
+    //        int runStart = -1;
+    //        for (int x = 0; x <= Chunk.Size; x++)
+    //        {
+    //            bool coll = (x < Chunk.Size) && isCollidable(chunk.GetTile(x, y));
+    //            if (coll && runStart == -1) runStart = x;
+    //            if ((!coll || x == Chunk.Size) && runStart != -1)
+    //            {
+    //                int runEnd = x - 1;
+    //                float worldX = (chunk.CX * Chunk.Size + runStart) * tileSize;
+    //                float worldY = (chunk.CY * Chunk.Size + y) * tileSize;
+    //                float width = (runEnd - runStart + 1) * tileSize;
+    //                chunk.Colliders.Add(new AABB
+    //                {
+    //                    MinX = worldX,
+    //                    MinY = worldY,
+    //                    MaxX = worldX + width,
+    //                    MaxY = worldY + tileSize
+    //                });
+    //                runStart = -1;
+    //            }
+    //        }
+    //    }
+    //}
 }
